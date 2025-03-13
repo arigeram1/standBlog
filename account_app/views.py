@@ -1,5 +1,27 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
-def login(request):
+from django.contrib.auth import authenticate , login
 
-    return render(request,'account_app/Login.html')
+def loginView(request):
+
+    if request.user.is_authenticated:
+
+        return redirect('/')
+
+    if request.method == 'POST':
+
+        username = request.POST.get('username')
+
+        password = request.POST.get('password')
+
+        user = authenticate(request,username=username,password=password)
+
+        if user is not None:
+            login(request,user)
+            return redirect('/')
+
+        else:
+            return redirect('/login')
+
+    return render(request, 'account_app/Login.html')
+
