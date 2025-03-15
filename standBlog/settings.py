@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home_app.apps.HomeAppConfig',
-    'account_app.apps.AccountAppConfig'
+    'account_app.apps.AccountAppConfig',
+    'article_app.apps.ArticleAppConfig',
+    'django_cleanup.apps.CleanupConfig',
 
 ]
 
@@ -122,6 +124,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+MEDIA_URL = 'media/'
+
+MEDIA_ROOT = path.join(BASE_DIR,'media')
 
 STATICFILES_DIRS = [
     path.join(BASE_DIR,'static')
