@@ -26,4 +26,4 @@ urlpatterns = [
 
        path('',include('account_app.urls'))
 
-] + static(settings.MEDIA_URL , doctument_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL , document_root=settings.MEDIA_ROOT)
