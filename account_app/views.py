@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate , login,logout
 
 from django.contrib.auth.models import User
 
+
+
 def loginView(request):
 
     if request.user.is_authenticated:

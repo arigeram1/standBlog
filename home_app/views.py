@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 from article_app.models import Article
 
+from account_app.models import Profile
 
 def home(request):
 

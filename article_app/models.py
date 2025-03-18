@@ -3,15 +3,22 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# همیشه کلاسی که داره یک فیلد فارین رو میاره میره اول معادله یعنی
+class Category(models.Model):
 
-# many to one
+    title = models.CharField(max_length=100)
 
-# یعنی جدول آرتیکل منی محسوب میشه و جدولی که بهش مرتبط میشه میشه وان
+    created = models.DateTimeField(auto_now_add=True)
 
-# یعنی چند مقاله مرتبط میشوند به یک کاربر
+
+    def __str__(self):
+
+        return self.title
+
 
 class Article(models.Model):
+
+
+    category = models.ManyToManyField(Category)
 
     author = models.ForeignKey(User,on_delete=models.CASCADE)
 
@@ -24,6 +31,7 @@ class Article(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     updated = models.DateTimeField(auto_now=True)
+
 
     def __str__(self):
         return f'{self.title} - {self.body[:30]}'
