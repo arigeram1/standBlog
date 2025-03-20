@@ -6,6 +6,7 @@ app_name = 'article_app'
 
 urlpatterns = [
 
-    path('detail/<int:article_id>',views.articleDetailView , name='detail')
+    path('detail/<slug:slug>',views.articleDetailView , name='detail')
 
 ]
+

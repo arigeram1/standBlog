@@ -4,8 +4,8 @@ from .models import Article
 
 
 
-def articleDetailView(request,article_id):
+def articleDetailView(request,slug):
 
-    article = Article.objects.get(id=article_id)
+    article = Article.objects.get(slug=slug)
 
     return render(request,'article_app/article_details.html', context={'article':article})
