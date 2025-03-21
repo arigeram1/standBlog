@@ -34,6 +34,9 @@ class Article(models.Model):
 
     slug = models.SlugField(unique=True , blank=True)
 
+    # class Meta:
+    #     ordering = ('-created',)
+
     def save(self,force_insert = False, force_update = False,using = None,update_fields = None,):
 
         self.slug = slugify(self.title)
