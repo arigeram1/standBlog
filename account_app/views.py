@@ -10,7 +10,7 @@ def loginView(request):
 
     if request.user.is_authenticated:
 
-        return redirect('home_app:main')
+        return redirect('home')
 
     if request.method == 'POST':
 
@@ -22,7 +22,7 @@ def loginView(request):
 
         if user is not None:
             login(request,user)
-            return redirect('home_app:main')
+            return redirect('home')
 
         else:
             return redirect('account_app:login')
@@ -44,7 +44,7 @@ def registerView(request):
 
     if request.user.is_authenticated:
 
-        return redirect('home_app:main')
+        return redirect('home')
 
     if request.method == 'POST':
 
@@ -61,7 +61,7 @@ def registerView(request):
         user = User.objects.create(username=username,password=password1,email=email)
 
         login(request,user)
-        return redirect('home_app:main')
+        return redirect('home')
 
 
     return render(request, 'account_app/Register.html')
