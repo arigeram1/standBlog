@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load social_share %}
 
 {% block title %}
 	Stand CSS Blog by TemplateMo
@@ -90,15 +91,21 @@
                                             <div class="col-6">
                                                 <ul class="post-tags">
                                                     <li><i class="fa fa-tags"></i></li>
-                                                    <li><a href="#">Beauty</a>,</li>
-                                                    <li><a href="#">Nature</a></li>
+                                                    {% for cat in article.category.all %}
+                                                    <li><a href="#">{{ cat.title }}</a>
+                                                    {% if cat.id != article.category.last.id %}
+                                                        ,
+                                                    {% endif %}
+                                                    </li>
+                                                    {% endfor %}
+
                                                 </ul>
                                             </div>
                                             <div class="col-6">
                                                 <ul class="post-share">
                                                     <li><i class="fa fa-share-alt"></i></li>
-                                                    <li><a href="#">Facebook</a>,</li>
-                                                    <li><a href="#"> Twitter</a></li>
+                                                    <li>{% post_to_whatsapp article.get_absolute_url "Whatsapp" %}</li>
+
                                                 </ul>
                                             </div>
                                         </div>
