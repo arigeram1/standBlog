@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from .models import Category , Article
 
-
+from django.core.paginator import Paginator
 
 
 def articleDetailView(request,slug):
@@ -14,9 +14,16 @@ def articleDetailView(request,slug):
 
 def articleListView(request):
 
-    articles = Article.objects.all()
+    articles = Article.objects.all().order_by('-created')
 
-    return render(request,'article_app/article_list.html', context={'articles':articles})
+    paginator = Paginator(articles, 1)
+
+    selected_page = request.GET.get('page')
+
+    objects_list = paginator.get_page(selected_page)
+
+    return render(request, 'article_app/article_list.html', context={'articles': objects_list})
+
 
 
 
