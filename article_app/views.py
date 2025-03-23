@@ -35,8 +35,6 @@ def articleListView(request):
     return render(request, 'article_app/article_list.html', context={'articles': objects_list})
 
 
-
-
 def articleByCatView(request,pk):
 
     category = Category.objects.get(id=pk)
@@ -44,6 +42,28 @@ def articleByCatView(request,pk):
     articles = category.articles.all()
 
     return render(request,'article_app/category_detail.html',context={'articles':articles})
+
+
+def searchView(request):
+
+    searched_value = request.GET.get('q')
+
+    articles = Article.objects.filter(title__icontains=searched_value)
+
+    if len(articles) > 2:
+
+        paginator = Paginator(articles,2)
+
+        selected_page = request.GET.get('page')
+
+        objects_list = paginator.get_page(selected_page)
+
+        return render(request, 'article_app/article_list.html', context={'articles': objects_list})
+
+
+
+    return render(request,'article_app/article_list.html', context={'articles':articles})
+
 
 
 

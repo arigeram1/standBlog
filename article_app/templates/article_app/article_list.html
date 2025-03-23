@@ -8,7 +8,9 @@
 {% block content %}
     <!-- Page Content -->
     <!-- Banner Starts Here -->
-    <div class="heading-page header-text">
+
+
+        <div class="heading-page header-text">
         <section class="page-heading">
             <div class="container">
                 <div class="row">
@@ -89,20 +91,20 @@
                                 <ul class="page-numbers">
                                     {% if articles.has_other_pages %}
                                         {% if articles.has_previous %}
-                                        	<li><a href="?page={{ articles.previous_page_number }}"><i class="fa fa-angle-double-left"></i></a></li>
+                                        	<li><a href="?page={{ articles.previous_page_number }}&q={{ request.GET.q }}"><i class="fa fa-angle-double-left"></i></a></li>
                                         {% endif %}
                                         {% for index in articles.paginator.page_range %}
                                             {% if index >= articles.number|add:'-1' and index <= articles.number|add:'1' %}
                                         	{% if articles.number == index  %}
                                                 <li class="active"><a>{{ index }}</a></li>
                                                 {% else %}
-                                                <li><a href="?page={{ index }}">{{ index }}</a></li>
+                                                <li><a href="?page={{ index }}&q={{ request.GET.q }}">{{ index }}</a></li>
                                             {% endif %}
                                             {% endif %}
                                         {% endfor %}
 
                                         {% if articles.has_next %}
-                                        	<li><a href="?page={{ articles.next_page_number }}"><i class="fa fa-angle-double-right"></i></a></li>
+                                        	<li><a href="?page={{ articles.next_page_number }}&q={{ request.GET.q }}"><i class="fa fa-angle-double-right"></i></a></li>
                                         {% endif %}
                                     {% endif %}
                                 </ul>
@@ -114,5 +116,8 @@
             </div>
         </div>
     </section>
+
+
+
 
 {% endblock %}
