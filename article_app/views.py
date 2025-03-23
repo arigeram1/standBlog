@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
-from .models import Category , Article
+from .models import Category , Article,Comment
 
 from django.core.paginator import Paginator
 
@@ -9,7 +9,17 @@ def articleDetailView(request,slug):
 
     article = Article.objects.get(slug=slug)
 
-    return render(request,'article_app/article_details.html', context={'article':article})
+    if request.method == 'POST':
+
+        body = request.POST.get('body')
+
+        author = request.user
+
+        parent_id = request.POST.get('parent_id')
+
+        Comment.objects.create(body=body,author=author,article=article,parent_id=parent_id)
+
+    return render(request,'article_app/article_details.html', context={'article':article} )
 
 
 def articleListView(request):
