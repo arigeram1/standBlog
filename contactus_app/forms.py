@@ -1,14 +1,22 @@
 from django import forms
+from article_app.models import Message,Article
+from django.core.validators import ValidationError
 
-# در اینجا با کمک کلاس زیر یک فرم با اینپوت های مختلف درست میکنیم
 
-# که بعد یک نمونه از روی این کلاس باید ساخته شود که فرم نهایی ما است و در ویو به صفحه مورد نظر
+class MessageForm(forms.ModelForm):
 
-# ارسال شود با کمک کانتکس
+    class Meta:
 
-class ContactUsForm(forms.Form):
+        model = Message
+        exclude = ('created_at',)
+        # fields = '__all__'
 
-    name = forms.CharField(max_length=10 , label='Name :')
-    text = forms.CharField(max_length=10 , label='Text :')
+
+    # title = forms.CharField(max_length=50)
+    #
+    # body = forms.CharField(widget=forms.Textarea)
+    #
+    # email = forms.EmailField()
+
 
 
