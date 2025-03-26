@@ -13,11 +13,11 @@ def contactUsView(request):
 
         if form.is_valid():
 
-            title = form.cleaned_data.get('title')
-            body = form.cleaned_data.get('body')
-            email = form.cleaned_data.get('email')
+            instance = form.save(commit=False)
 
-            Message.objects.create(title=title,body=body,email=email)
+            instance.title += '-message'
+
+            instance.save()
 
     else:
 

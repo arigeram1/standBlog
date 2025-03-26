@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'article_app.apps.ArticleAppConfig',
     'django_cleanup.apps.CleanupConfig',
     'django_social_share',
-    'contactus_app.apps.ContactusAppConfig'
+    'contactus_app.apps.ContactusAppConfig',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

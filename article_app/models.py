@@ -83,6 +83,8 @@ class Message(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
 
+    age = models.IntegerField(default=0)
+
     def __str__(self):
 
         return self.title
