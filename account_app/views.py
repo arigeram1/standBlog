@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate , login,logout
 
 from django.contrib.auth.models import User
 
-
+from .forms import LoginForm,UserEditForm
 
 def loginView(request):
 
@@ -14,20 +14,21 @@ def loginView(request):
 
     if request.method == 'POST':
 
-        username = request.POST.get('username')
+        form = LoginForm(request.POST)
 
-        password = request.POST.get('password')
+        if form.is_valid():
 
-        user = authenticate(request,username=username,password=password)
+            user = User.objects.get(username=form.cleaned_data.get('username'))
 
-        if user is not None:
             login(request,user)
+
             return redirect('home_app:home')
 
-        else:
-            return redirect('account_app:login')
+    else:
 
-    return render(request, 'account_app/Login.html')
+        form = LoginForm()
+
+    return render(request, 'account_app/Login.html' , context={'form':form})
 
 
 def logoutView(request):
@@ -35,7 +36,6 @@ def logoutView(request):
         logout(request)
 
         return redirect('home_app:home')
-
 
 
 def registerView(request):
@@ -67,6 +67,25 @@ def registerView(request):
     return render(request, 'account_app/Register.html')
 
 
+def UserEditView(request):
+
+    user = request.user
+
+    if request.method == 'POST':
+        # ایحا علت تعریف مقدار instance
+        # اینه که برنامه متوجه بشه که باید داده های دریافتی از سمت فرم رو برای بروز رسانی کدوم کاربر در نظر بگیره
+        # یعنی در نهایت یک فرم جدید با اطلاعات وارد شده جدید برای کاربر احراز هویت شده فعلی ساخته میشه که بعد از
+        # ولیدیشن فرمش که فقط حاوی تغییراتی روی 3 فیلدش بود اعمال بشه بروی مدل user
+        form = UserEditForm(instance=user,data=request.POST)
+
+        if form.is_valid():
+
+            form.save()
+
+
+    form = UserEditForm(instance=user)
+
+    return render(request,'account_app/edit.html' , context={'form':form})
 
 
 
