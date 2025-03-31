@@ -4,6 +4,9 @@ from .models import Category , Article,Comment
 
 from django.core.paginator import Paginator
 
+from django.views.generic import ListView,DetailView
+
+from django.views.generic.base import TemplateView
 
 def articleDetailView(request,slug):
 
@@ -65,5 +68,38 @@ def searchView(request):
     return render(request,'article_app/article_list.html', context={'articles':articles})
 
 
+
+# class ListView(View):
+#
+#     queryset = None
+#     template_name = None
+#
+#     def get(self,request):
+#
+#         return render(request,self.template_name,{'articles':self.queryset})
+
+
+
+
+
+class ArticleListView(ListView):
+
+    queryset = Article.objects.all()
+
+    template_name = 'article_app/article_list.html'
+
+
+
+# class SingleArticleView(TemplateView):
+#
+#     template_name = 'article_app/article_list2.html'
+#
+#     def get_context_data(self, **kwargs):
+#
+#         context = super().get_context_data(**kwargs)
+#
+#         context['article'] = Article.objects.get(title__icontains='donec')
+#
+#         return context
 
 
