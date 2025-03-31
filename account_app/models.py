@@ -19,5 +19,11 @@ class Profile(models.Model):
         return self.user.username
 
 
+    class Meta:
+
+        verbose_name = 'حساب کاربری'
+        verbose_name_plural = 'حساب های کاربری'
+
+
 
 

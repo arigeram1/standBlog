@@ -16,6 +16,11 @@ class Category(models.Model):
 
         return self.title
 
+    class Meta:
+
+        verbose_name = 'دسته بندی'
+        verbose_name_plural = 'دسته بندی ها'
+
 
 class Article(models.Model):
 
@@ -51,6 +56,11 @@ class Article(models.Model):
     def __str__(self):
         return f'{self.title} - {self.body[:30]}'
 
+    class Meta:
+
+        verbose_name = 'مقاله'
+        verbose_name_plural = 'مقالات'
+
 
 class Comment(models.Model):
 
@@ -65,11 +75,14 @@ class Comment(models.Model):
     body = models.TextField()
 
 
-
-
     def __str__(self):
 
         return self.body[:30]
+
+    class Meta:
+
+        verbose_name = 'کامنت'
+        verbose_name_plural = 'کامنت ها'
 
 
 class Message(models.Model):
@@ -89,7 +102,10 @@ class Message(models.Model):
 
         return self.title
 
+    class Meta:
 
+        verbose_name = 'پیام'
+        verbose_name_plural = 'پیام ها'
 
 
 
