@@ -94,6 +94,13 @@ class Comment(models.Model):
     getEmail.short_description = 'ایمیل'
 
 
+    def getArticle(self):
+
+        return format_html(f'<a href="/admin/article_app/article/{self.article.id}">{self.article.title}</a>')
+
+    getArticle.short_description = 'مقاله'
+
+
     def __str__(self):
 
         return self.body[:30]
@@ -129,9 +136,9 @@ class Message(models.Model):
 
 class Like(models.Model):
 
-    user = models.ForeignKey(User,on_delete=models.CASCADE , related_name='user' , verbose_name='کاربر')
+    user = models.ForeignKey(User,on_delete=models.CASCADE , related_name='like' , verbose_name='کاربر')
 
-    article = models.ForeignKey(Article,on_delete=models.CASCADE , related_name='article', verbose_name='مقاله')
+    article = models.ForeignKey(Article,on_delete=models.CASCADE , related_name='like', verbose_name='مقاله')
 
     created_at = models.DateTimeField(auto_now_add=True)
 

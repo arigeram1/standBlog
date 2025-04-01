@@ -46,7 +46,7 @@ class ArticleAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
 
-    list_display = ('__str__','getEmail','created_at')
+    list_display = ('__str__','getArticle','getEmail','created_at')
 
 
 admin.site.register(Category)
