@@ -7,7 +7,7 @@ from account_app.models import Profile
 
 class Category(models.Model):
 
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100 , verbose_name='عنوان')
 
     created = models.DateTimeField(auto_now_add=True)
 
@@ -24,21 +24,23 @@ class Category(models.Model):
 
 class Article(models.Model):
 
-    category = models.ManyToManyField(Category , related_name='articles')
+    category = models.ManyToManyField(Category , related_name='articles' ,verbose_name='دسته بندی')
 
-    author = models.ForeignKey(User,on_delete=models.CASCADE , related_name='articles')
+    author = models.ForeignKey(User,on_delete=models.CASCADE , related_name='articles',verbose_name='نویسنده')
 
-    title = models.CharField(max_length=70)
+    title = models.CharField(max_length=70,verbose_name='عنوان مقاله')
 
-    body = models.TextField()
+    body = models.TextField(verbose_name='متن مقاله')
 
-    image = models.ImageField(upload_to='images/article')
+    image = models.ImageField(upload_to='images/article',verbose_name='تصویر مقاله')
 
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True , verbose_name='زمان ایجاد')
 
     updated = models.DateTimeField(auto_now=True)
 
-    slug = models.SlugField(unique=True , blank=True)
+    slug = models.SlugField(unique=True , blank=True,verbose_name='اسلاگ')
+
+    status = models.BooleanField(default=False , verbose_name='فعال')
 
     # class Meta:
     #     ordering = ('-created',)
