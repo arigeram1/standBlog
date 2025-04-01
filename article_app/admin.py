@@ -1,16 +1,42 @@
 from django.contrib import admin
+from django.template.defaultfilters import title
 
 from .models import Article,Category,Comment,Message
+
+
+class FilterByTitle(admin.SimpleListFilter):
+
+    title = 'عنوان مقاله'
+    parameter_name = 'title'
+    def lookups(self, request, model_admin):
+        return (
+            ('eagle','eagle'),
+            ('solar','solar'),
+            ('css','css'),
+        )
+    def queryset(self, request, queryset):
+
+        if self.value():
+
+            return queryset.filter(title__icontains=self.value())
 
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
 
-    list_display = ('title','author','created','status')
+    list_display = ('title','created','status')
 
     list_editable = ('status',)
 
-    list_filter = ('status','created')
+    list_filter = ('status',FilterByTitle)
+
+    search_fields = ('title','body')
+
+    fields = ('title','body','category','image','status')
+
+
+
+
 
 
 

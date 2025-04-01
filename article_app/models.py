@@ -38,7 +38,7 @@ class Article(models.Model):
 
     updated = models.DateTimeField(auto_now=True)
 
-    slug = models.SlugField(unique=True , blank=True,verbose_name='اسلاگ')
+    slug = models.SlugField(unique=True , blank=True)
 
     status = models.BooleanField(default=False , verbose_name='فعال')
 
