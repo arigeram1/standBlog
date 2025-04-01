@@ -24,7 +24,7 @@ class FilterByTitle(admin.SimpleListFilter):
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
 
-    list_display = ('title','created','status')
+    list_display = ('title','created','show_image','status',)
 
     list_editable = ('status',)
 
@@ -33,9 +33,6 @@ class ArticleAdmin(admin.ModelAdmin):
     search_fields = ('title','body')
 
     fields = ('title','body','category','image','status')
-
-
-
 
 
 

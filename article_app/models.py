@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.utils.html import format_html
 from django.utils.text import slugify
 
 from account_app.models import Profile
@@ -42,8 +43,17 @@ class Article(models.Model):
 
     status = models.BooleanField(default=False , verbose_name='فعال')
 
-    # class Meta:
-    #     ordering = ('-created',)
+    def show_image(self):
+
+        if self.image:
+
+            return format_html(f'<img src="{self.image.url}" width="50px" height="50px">')
+
+        return format_html('<h3 style="color: red">تصویر ندارد</h3>')
+
+
+    show_image.short_description = 'تصویر'
+
 
     def save(self,force_insert = False, force_update = False,using = None,update_fields = None,):
 
