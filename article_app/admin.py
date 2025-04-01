@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.template.defaultfilters import title
 
-from .models import Article,Category,Comment,Message
+from .models import Article,Category,Comment,Message,Like
 
 
 class FilterByTitle(admin.SimpleListFilter):
@@ -43,7 +43,13 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+
+    list_display = ('__str__','getEmail','created_at')
+
 
 admin.site.register(Category)
-admin.site.register(Comment)
+
 admin.site.register(Message)
+admin.site.register(Like)
