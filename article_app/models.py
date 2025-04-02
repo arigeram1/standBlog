@@ -136,9 +136,9 @@ class Message(models.Model):
 
 class Like(models.Model):
 
-    user = models.ForeignKey(User,on_delete=models.CASCADE , related_name='like' , verbose_name='کاربر')
+    user = models.ForeignKey(User,on_delete=models.CASCADE , related_name='likes' , verbose_name='کاربر')
 
-    article = models.ForeignKey(Article,on_delete=models.CASCADE , related_name='like', verbose_name='مقاله')
+    article = models.ForeignKey(Article,on_delete=models.CASCADE , related_name='likes', verbose_name='مقاله')
 
     created_at = models.DateTimeField(auto_now_add=True)
 

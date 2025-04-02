@@ -1,6 +1,9 @@
+from django.http import JsonResponse
 from django.shortcuts import render,redirect
 
-from .models import Category , Article,Comment
+from .models import Category , Article,Comment,Like
+
+from django.contrib.auth.models import User
 
 from django.core.paginator import Paginator
 
@@ -12,6 +15,22 @@ def articleDetailView(request,slug):
 
     article = Article.objects.get(slug=slug)
 
+    like_Counter = len(Like.objects.filter(article=article))
+
+    if request.user.is_authenticated:
+
+        if article.likes.filter(user=request.user).exists():
+
+            is_like = True
+
+        else:
+
+            is_like = False
+
+    else:
+         is_like = None
+
+
     if request.method == 'POST':
 
         body = request.POST.get('body')
@@ -22,7 +41,8 @@ def articleDetailView(request,slug):
 
         Comment.objects.create(body=body,author=author,article=article,parent_id=parent_id)
 
-    return render(request,'article_app/article_details.html', context={'article':article} )
+
+    return render(request,'article_app/article_details.html', context={'article':article,'is_like':is_like,'like_Counter':like_Counter} )
 
 
 def articleListView(request):
@@ -68,15 +88,32 @@ def searchView(request):
     return render(request,'article_app/article_list.html', context={'articles':articles})
 
 
+def like(request,slug):
 
-# class ListView(View):
-#
-#     queryset = None
-#     template_name = None
-#
-#     def get(self,request):
-#
-#         return render(request,self.template_name,{'articles':self.queryset})
+    article = Article.objects.get(slug=slug)
+
+    user = User.objects.get(username=request.user.username)
+
+    try:
+
+        like_object = Like.objects.get(article=article,user=user)
+        like_object.delete()
+        like_count = len(Like.objects.filter(article=article))
+
+        return JsonResponse({'response':'unliked' , 'like_count':like_count})
+
+
+    except:
+
+        Like.objects.create(article=article,user=user)
+
+        like_count = len(Like.objects.filter(article=article))
+
+
+        return JsonResponse({'response': 'liked', 'like_count':like_count})
+
+
+
 
 
 

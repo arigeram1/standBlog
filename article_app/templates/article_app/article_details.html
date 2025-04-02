@@ -81,8 +81,13 @@
                                             <div class="row">
                                                 <div class="col-6">
                                                     <ul class="post-tags">
+                                                        {% if is_like %}
+                                                            <li><a onclick="like('{{ article.slug }}')"><i style="font-size: 20px" class="fa fa-heart" id="like"></i></a></li>
+                                                        	{% else %}
+                                                            <li><a onclick="like('{{ article.slug }}')"><i style="font-size: 20px" class="fa fa-heart-o" id="like"></i></a></li>
+                                                        {% endif %}
 
-                                                        <li><a href=""><i style="font-size: 20px" class="fa fa-heart-o"></i></a>3</li>
+                                                        <li id="like_counter">{{ like_Counter }}</li>
 
                                                     </ul>
                                                 </div>
